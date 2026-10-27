@@ -56,7 +56,7 @@ policy.pdf            # not included: you add the policy file here
 
 ### 1. Prerequisites
 - Python 3.10 or newer
-- Any LLM API Key (OpenAI/Gemini/Claude)
+- A Gemini API key (free tier works), from Google AI Studio
 
 ### 2. Clone the repo and open it in an IDE (VSCode)
 ```bash
