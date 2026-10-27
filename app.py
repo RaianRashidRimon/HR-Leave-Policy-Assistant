@@ -12,9 +12,9 @@ from pypdf import PdfReader
 
 load_dotenv()
 
-API_KEY = os.getenv("GEMINI_API_KEY")
-MODEL = os.getenv("GEMINI_MODEL")
-POLICY_PATH = Path("data/XYZ Company Leave Policy (Sample).pdf")
+API_KEY = os.getenv("API_KEY")
+MODEL = os.getenv("MODEL")
+POLICY_PATH = Path("copy and paste relative path of your pdf")
 NOT_COVERED = "I don't know, please contact HR."
 
 RULES = """You are an HR leave-policy assistant. Answer employee questions using ONLY the policy text provided below.
@@ -106,7 +106,7 @@ st.title("XYZ Company Leave Policy Assistant")
 st.caption("Get clear, policy-based answers to your leave-related questions.")
 
 if not API_KEY or not MODEL:
-    st.error("Set GEMINI_API_KEY and GEMINI_MODEL in your .env file.")
+    st.error("Set API_KEY and MODEL in your .env file.")
     st.stop()
 if not POLICY_PATH.exists():
     st.error("Policy file not found. Place it at data/policy.pdf.")
