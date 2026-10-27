@@ -58,13 +58,12 @@ policy.pdf            # not included: you add the policy file here
 - Python 3.10 or newer
 - Any LLM API Key (OpenAI/Gemini/Claude)
 
-### 2. Get the code
+### 2. Clone the repo and open it in an IDE (VSCode)
 ```bash
-git clone https://github.com/<your-username>/hr-leave-policy-assistant.git
-cd hr-leave-policy-assistant
+git clone https://github.com/RaianRashidRimon/HR-Leave-Policy-Assistant.git
 ```
 
-### 3. Create a virtual environment and install dependencies
+### 3. Create a virtual environment and install dependencies using the IDE terminal
 
 **Windows**
 ```bash
@@ -81,71 +80,34 @@ pip install -r requirements.txt
 ```
 
 ### 4. Configure your API key and model
-Copy the template to a real `.env` file:
-
-**Windows:** `copy .env.example .env`
-**macOS / Linux:** `cp .env.example .env`
+Rename the `.env.example` to `.env`
 
 Open `.env` and fill in both values:
 
 ```
-GEMINI_API_KEY=your_api_key_here
-GEMINI_MODEL=model_id_from_google_ai_studio
+API_KEY=your_api_key_here
+MODEL=model_id
 ```
-
-- `GEMINI_API_KEY`: your key from Google AI Studio.
-- `GEMINI_MODEL`: the ID of a Gemini Flash model available to your key (see the model list in Google AI Studio). Model IDs change over time, so use one currently listed there.
-
-No spaces around `=`. Quotes are not needed. Never commit your `.env` file: it is listed in `.gitignore`.
 
 ### 5. Add the policy file
-The sample leave policy is confidential and not included in this repository. Place your provided copy at:
-
-```
-data/policy.pdf
-```
-
-(The file must be named exactly `policy.pdf`.)
+The sample leave policy is confidential and not included in this repository. Place your provided copy at the same folder as the repo clone
 
 ### 6. Run the app
 ```bash
 streamlit run app.py
 ```
 
-Streamlit opens the chat interface in your browser, usually at `http://localhost:8501`. Run the command from the project folder, because the policy path is relative.
-
-## Example questions to try
-
-| Type | Example |
-|---|---|
-| Covered by the policy | "How many annual leave days do employees get per year?" |
-| Covered, with citation | "Can I carry forward unused annual leave, and when does it expire?" |
-| Not covered | "What is the company's work-from-home policy?" |
-| Another employee's data | "How many leave days has Rahim taken this year?" |
-
-The full list of test questions, with the expected behavior for each, is in `test_questions.txt`.
+Streamlit opens the chat interface in your browser.
 
 ## Troubleshooting
 
-- **"Set GEMINI_API_KEY and GEMINI_MODEL in your .env file"**: the `.env` file is missing, misnamed (e.g. `.env.txt`), in the wrong folder, or has empty values. Restart Streamlit after editing it.
-- **"Policy file not found"**: make sure the file is at `data/policy.pdf` and that you are running the command from the project folder.
-- **"The AI service is busy right now"**: the Gemini free tier can return temporary "high demand" (503) or rate-limit errors. The app retries automatically a few times, so waiting a few seconds and asking again usually works. If it keeps happening, try a different Flash-family model in `.env`.
+- **"Set API_KEY and MODEL in your .env file"**: the `.env` file is missing, misnamed (e.g. `.env.txt`), in the wrong folder or has empty values. Restart Streamlit after editing it.
+- **"The AI service is busy right now"**: the free tier API can return temporary "high demand" (503) or rate-limit errors. The app retries automatically a few times, so waiting a few seconds and asking again usually works. If it keeps happening, try a different family model in `.env`.
 - **First answer is slower than the rest**: the first request includes connection warm-up and possibly a retry. Later requests are faster.
 - **Persistent errors**: check the terminal where Streamlit is running, which prints the underlying API error.
-
-## Data and privacy notes
-
-- The sample policy is for assessment purposes only and is **not** included in this repository.
-- At runtime, the policy text and the user's question are sent to the Gemini API. On the free tier, Google may use submitted content to improve its products, so **do not use this setup with real company policies or personal data**. For real use, choose a paid or enterprise API plan with suitable data-protection terms, or a locally hosted model.
-- Users are reminded in the interface not to enter personal or sensitive details.
-- No data is stored by the app.
 
 ## Limitations and future improvements
 
 - **Testing was manual** on a small set of questions, so unusual phrasings or edge cases may still slip through. The citation check confirms a cited section exists in the policy, not that it is the *right* section for the question.
 - **With more time**, I would add an automated test suite of 30-50 questions (covered, not covered, privacy, prompt-injection and multi-section cases) with expected outcomes, run after every prompt or model change, to give a measurable accuracy figure.
 - Free-tier availability and rate limits are outside the app's control.
-
-## Demo
-
-Demo video: *<add your unlisted link here>*
