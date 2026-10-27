@@ -105,9 +105,3 @@ Streamlit opens the chat interface in your browser.
 - **"The AI service is busy right now"**: the free tier API can return temporary "high demand" (503) or rate-limit errors. The app retries automatically a few times, so waiting a few seconds and asking again usually works. If it keeps happening, try a different family model in `.env`.
 - **First answer is slower than the rest**: the first request includes connection warm-up and possibly a retry. Later requests are faster.
 - **Persistent errors**: check the terminal where Streamlit is running, which prints the underlying API error.
-
-## Limitations and future improvements
-
-- **Testing was manual** on a small set of questions, so unusual phrasings or edge cases may still slip through. The citation check confirms a cited section exists in the policy, not that it is the *right* section for the question.
-- **With more time**, I would add an automated test suite of 30-50 questions (covered, not covered, privacy, prompt-injection and multi-section cases) with expected outcomes, run after every prompt or model change, to give a measurable accuracy figure.
-- Free-tier availability and rate limits are outside the app's control.
